@@ -11,16 +11,6 @@
 /** Helper classes for std::unordered_map and std::unordered_set hashing */
 
 template<typename T> struct SaltedHasherImpl;
-
-template<typename N>
-struct SaltedHasherImpl<std::pair<uint256, N>>
-{
-    static std::size_t CalcHash(const std::pair<uint256, N>& v, uint64_t k0, uint64_t k1)
-    {
-        return SipHashUint256Extra(k0, k1, v.first, (uint32_t) v.second);
-    }
-};
-
 template<typename N>
 struct SaltedHasherImpl<std::pair<N, uint256>>
 {
