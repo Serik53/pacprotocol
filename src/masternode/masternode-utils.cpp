@@ -41,6 +41,10 @@ void CMasternodeUtils::ProcessMasternodeConnections(CConnman& connman)
         if (connman.IsMasternodeQuorumNode(pnode)) return;
         // we're not disconnecting masternode probes for at least a few seconds
         if (pnode->m_masternode_probe_connection && GetSystemTimeInSeconds() - pnode->nTimeConnected < 5) return;
+        else if (pnode->qwatch) {
+            // keep watching nodes
+            return;
+        }
 
 #ifdef ENABLE_WALLET
         bool fFound = false;
